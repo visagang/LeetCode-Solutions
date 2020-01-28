@@ -1,0 +1,26 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        visited=[]
+        ans=[]
+        if(len(s)<2):
+            return len(s)
+        else:
+            for i in range(0,len(s)-1):
+                for j in range(i,len(s)):
+                    #print(s[j])
+                    if(s[j] not in visited):
+                        visited.append(s[j])
+                    else:
+                        
+                        ans.append(len("".join(visited)))
+                        #print("before del",visited)
+                        i=visited.index(s[j])
+                        #del visited[0:visited.index(s[j])+1]
+                        visited.clear()
+                        #print("after del",visited)
+                        #visited.append(s[j])
+                        break
+        if(len(visited)!=0):
+            ans.append(len("".join(visited)))
+        #ans=set(ans)
+        return max(ans)
