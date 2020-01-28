@@ -1,0 +1,19 @@
+class Solution:
+    def reverse(self, x: int) -> int:
+        sign=0
+        s=list(str(x))
+        if(s[0]=="-"):
+            sign=1
+            s.pop(0)
+        s.reverse()
+        t=""
+        for x in s:
+            t=t+x
+        if(sign):
+            ans=-1*int(t)
+        else:
+            ans=int(t)
+        if(ans>2147483647 or ans < -2147483648 ):
+            return 0
+        else:
+            return ans
