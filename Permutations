@@ -1,0 +1,14 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        answer=[]
+        def bt(ans,nums):
+            if(len(nums)==0):
+                answer.append(ans)
+                return
+            for i in range(len(nums)):
+                #ans=ans+[nums[i]]
+                bt(ans+[nums[i]],nums[:i] + nums[i+1:])
+        bt([],nums)
+        return answer
+    
+        
