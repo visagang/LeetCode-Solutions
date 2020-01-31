@@ -1,0 +1,14 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        ans=[]
+        def bt(l,k,cur,ans):
+            if(len(cur)==k):
+                ans.append(cur)
+                return
+            for i in range(len(l)):
+                bt(l[i+1:],k,cur+[l[i]],ans)
+        
+        l=list(range(1, n+1))
+        #print(l)
+        bt(l,k,[],ans)
+        return ans
