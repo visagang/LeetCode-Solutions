@@ -1,0 +1,17 @@
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ans=[]
+        def bt(candidates,target,cur):
+            if(target==0):
+                cur.sort()
+                if(cur not in ans):
+                    ans.append(cur)
+                return
+            if(target<0):
+                return
+            for x in candidates:
+                bt(candidates,target-x,cur+[x])
+        
+        bt(candidates,target,[])
+        return ans
+        
