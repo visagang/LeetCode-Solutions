@@ -1,0 +1,15 @@
+class Solution(object):
+    def generateParenthesis(self, N):
+        ans = []
+        def bt(N,op,cl,cur):
+            if(op>0):
+                bt(N,op-1,cl,cur+'(')
+            if(cl>op):
+                bt(N,op,cl-1,cur+')')
+            if(len(cur)==2*N):
+                ans.append(cur)
+                return
+            
+            
+        bt(N,N,N,'')
+        return ans
