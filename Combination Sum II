@@ -1,0 +1,25 @@
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        ans=[]
+        def bt(candidates,target,cur,ans):
+            if(len(candidates)==0):
+                cur.sort()
+                if(target==0 and cur not in ans):
+                    ans.append(cur)
+                return
+            for i in range(len(candidates)):
+                #target=target-candidates[i]
+                if(target<0):
+                    return
+                if(target==0):
+                    cur.sort()
+                    if(cur not in ans):
+                        ans.append(cur)
+                    return
+                if(target>0):
+                    #bt(candidates[:i]+candidates[i+1:],target-candidates[i],cur+[candidates[i]],ans)
+                    bt(candidates[i+1:],target-candidates[i],cur+[candidates[i]],ans)
+                
+        candidates.sort()
+        bt(candidates,target,[],ans)
+        return ans
