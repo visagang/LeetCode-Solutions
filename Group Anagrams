@@ -1,0 +1,14 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        ans=[]
+        dict={}
+        for x in strs:
+            s=''.join(sorted(x))
+            dict.setdefault(s,[]).append(x)
+        
+        for i in dict : 
+            ans.append(dict[i]) 
+        return ans
+        
+            
+        
