@@ -1,0 +1,33 @@
+import numpy as np
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        if(matrix==[]):
+            return []
+        else:
+            ans=[]
+            matrix = np.array(matrix)
+            #print(matrix[:,:-1])
+            def bt(matrix,size,ans,cur,d):
+                if(len(cur)==size):
+                    ans.append(cur)
+                    return
+                if(d=='right'):
+                    bt(matrix[1:, 0:],size,ans,cur+list(matrix[0,:]),d='down')
+
+                if(d=='down'):
+                    bt(matrix[0:, 0:-1],size,ans,cur+list(matrix[:,-1]),d='left')
+
+                if(d=='left'):
+                    bt(matrix[0:-1,:],size,ans,cur+list(np.flipud(matrix[-1,:])),d='up') 
+
+                if(d=='up'):
+                    bt(matrix[:, 1:],size,ans,cur+list(np.flipud(matrix[:,0])),d='right') 
+
+
+            d='right'
+            size=len(matrix)*len(matrix[0])
+            bt(matrix,size,ans,[],d)
+            return ans[0]
+
+
+
