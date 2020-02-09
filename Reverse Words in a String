@@ -1,0 +1,23 @@
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        ans=[]
+        s=s.strip()
+        #print(s)
+        cur=''
+        for i in range(len(s)):
+            if(s[i]==' ' and len(cur)>0):
+                ans.append(cur)
+                cur=''
+            elif(s[i]==' '):
+                print('do nothing')
+            else:
+                cur=cur+s[i]
+        if(len(cur)>0):
+            ans.append(cur)
+        ans=ans[::-1]
+        f=''
+        for x in ans:
+            f=f+x+' '
+        f=f.strip()
+        return f
+        
