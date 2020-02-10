@@ -1,0 +1,20 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        if(len(nums)==1):
+            return nums[0]
+        else:
+            prevsum=nums[0]
+            prevmin=nums[0]
+            ans=[nums[0]]
+            for i in range(1,len(nums)):
+                cmax=max(nums[i],prevsum*nums[i],prevmin*nums[i])
+                cmin=min(nums[i],prevsum*nums[i],prevmin*nums[i])
+                prevsum=cmax
+                prevmin=cmin
+                print('Minimum sum',prevmin)
+                print('Max sum',cmax)
+                print('Loop End')
+                ans.append(cmax)
+            print(ans)
+            return max(ans)
+                    
