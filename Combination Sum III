@@ -1,0 +1,19 @@
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        ans=[]
+        def bt(l,k,n,cur,ans,visited):
+            if(len(cur)==k):
+                if(n==0):
+                    cur.sort()
+                    if(cur not in ans):
+                        ans.append(cur)
+                return
+            if(n<0):
+                return
+            for i in range(len(l)):
+                if(i not in visited):
+                    bt(l,k,n-l[i],cur+[l[i]],ans,visited+[i])
+            
+        l=list(range(1,10))
+        bt(l,k,n,[],ans,[])
+        return ans
