@@ -1,0 +1,19 @@
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        x=len(triangle)
+        if(x==1):
+            return triangle[0][0]
+        elif(x==2):
+            return min(triangle[1][0],triangle[1][1])+triangle[0][0]
+        #print(x)
+        ans=[]
+        def bt(l1,l2,pos,ans,level,x,cur):
+            #print(l1,l2,pos,level)
+            if(level==(x-1)):
+                ans.append(sum(cur)+l1)
+                ans.append(sum(cur)+l2)
+                return
+            bt(triangle[level+1][pos],triangle[level+1][pos+1],pos,ans,level+1,x,cur+[l1])
+            bt(triangle[level+1][pos+1],triangle[level+1][pos+2],pos+1,ans,level+1,x,cur+[l2])
+        bt(triangle[1][0],triangle[1][1],0,ans,1,x,[])
+        return min(ans)+triangle[0][0]
