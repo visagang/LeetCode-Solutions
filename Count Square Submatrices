@@ -1,0 +1,14 @@
+class Solution:
+    def countSquares(self, matrix: List[List[int]]) -> int:
+        row= len(matrix)
+        ans=0
+        col=len(matrix[0])
+        dp=[[0 for i in range(col+1)]for j in range(row+1)]
+        print(dp)
+        for i in range(row):
+            for j in range(col):
+                if(matrix[i][j]==1):
+                    dp[i+1][j+1]=min(dp[i][j],dp[i][j+1],dp[i+1][j])+1
+                    ans+=dp[i+1][j+1]
+        return ans
+                    
