@@ -1,0 +1,10 @@
+class Solution:
+    def findComplement(self, num: int) -> int:
+        bitnum="{0:b}".format(num)
+        combit=""
+        for i in bitnum:
+            if(i=='0'):
+                combit=combit+'1'
+            else:
+                combit=combit+'0'
+        return(int(combit,2))
