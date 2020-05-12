@@ -1,0 +1,23 @@
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        md={}
+        rd={}
+        for i in ransomNote:
+            if(i not in rd.keys()):
+                rd[i]=1
+            else:
+                rd[i]+=1
+        for i in magazine:
+            if(i not in md.keys()):
+                md[i]=1
+            else:
+                md[i]+=1
+        for key, value in rd.items(): 
+            if key in md:
+                print(rd[key])
+                if(md[key]<rd[key]):
+                    return False
+            else:
+                return False
+        return True
+            
