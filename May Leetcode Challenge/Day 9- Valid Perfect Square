@@ -1,0 +1,25 @@
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        if(num==1):
+            return True
+        nums=str(num)
+        if(nums[-1]=='2' or nums[-1]=='3' or nums[-1]=='7'):
+            return False
+        factors=[]
+        while(num>1):
+            for i in range(2,num+1):
+                if(num%i==0):
+                    factors.append(i)
+                    num=int(num/i)
+                    break
+        print(factors)
+        d={}
+        for i in factors:
+            if(i in d.keys()):
+                d[i]+=1
+            else:
+                d[i]=1
+        for k,v in d.items():
+            if(v%2!=0):
+                return False
+        return True
