@@ -1,0 +1,15 @@
+class Solution:
+    def findJudge(self, N: int, trust: List[List[int]]) -> int:
+        l=list(range(1,N+1))
+        j=list(range(1,N+1))
+        for i in trust:
+            if i[0] in l:
+                l.remove(i[0])
+        if(len(l)==0):
+            return -1
+        townhead=l[0]
+        j.remove(townhead)
+        for i in j:
+            if([i,townhead] not in trust):
+                return -1
+        return townhead
