@@ -1,0 +1,45 @@
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        ec=image[sr][sc]
+        flag=True
+        if(newColor==ec):
+            newColor=-ec
+            flag=False
+        maxrow=len(image)
+        maxcol=len(image[0])
+        image[sr][sc]=newColor
+        inq=[[sr,sc]]
+        while(len(inq)>0):
+            i=inq[0]
+            inq.pop(0)
+            ir=i[0]
+            ic=i[1]
+            if(ir-1>=0):#up
+                if(image[ir-1][ic]==ec):
+                    image[ir-1][ic]=newColor
+                    inq.append([ir-1,ic])
+
+            if(ic-1>=0):#left
+                if(image[ir][ic-1]==ec):
+                    image[ir][ic-1]=newColor
+                    inq.append([ir,ic-1])
+
+            if(ic+1<maxcol):#right
+                if(image[ir][ic+1]==ec):
+                    image[ir][ic+1]=newColor
+                    inq.append([ir,ic+1])
+
+            if(ir+1<maxrow):#down
+                if(image[ir+1][ic]==ec):
+                    image[ir+1][ic]=newColor
+                    inq.append([ir+1,ic])
+
+        if(flag):
+            return(image)
+        else:
+            for i in range(maxrow):
+                for j in range(maxcol):
+                    if(image[i][j]<0):
+                        image[i][j]=abs(image[i][j])
+            return(image)
+                
