@@ -1,0 +1,21 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        ans=[]
+        pattern=Counter(p)
+        print(pattern)
+        length=len(p)
+        substring=s[0:length]
+        subs=Counter(substring)
+        if(subs==pattern):
+            ans.append(0)
+        for i in range(1,len(s)-length+1):
+            substring=s[i:i+length]
+            prev=s[i-1]
+            subs[prev]-=1
+            if(subs[prev]==0):
+                del subs[prev]
+            subs[substring[-1]]+=1
+            if(subs==pattern):
+                ans.append(i)
+        return(ans)
+            
