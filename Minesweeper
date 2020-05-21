@@ -1,0 +1,107 @@
+import copy
+class Solution:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        def changewithbomb(board):
+            maxrow=len(board)
+            maxcol=len(board[0])
+            for row in range(maxrow):
+                for col in range(maxcol):
+                    bomb=0
+                    if(board[row][col]!='M'):
+                        if(row+1<maxrow):#down
+                            if(board[row+1][col]=='M'):
+                                bomb+=1
+                        if(row-1>=0):#up
+                            if(board[row-1][col]=='M'):
+                                bomb+=1
+                        if(col-1>=0):#left
+                            if(board[row][col-1]=='M'):
+                                bomb+=1
+                        if(col+1<maxcol):#right
+                            if(board[row][col+1]=='M'):
+                                bomb+=1
+                        if(row-1>=0 and col+1<maxcol):#upper-right
+                            if(board[row-1][col+1]=='M'):
+                                bomb+=1
+                        if(row-1>=0 and col-1>=0):#upper-left
+                            if(board[row-1][col-1]=='M'):
+                                bomb+=1    
+                        if(row+1<maxrow and col+1<maxcol):#lower-right
+                            if(board[row+1][col+1]=='M'):
+                                bomb+=1
+                        if(row+1<maxrow and col-1>=0):#lower-left
+                            if(board[row+1][col-1]=='M'):
+                                bomb+=1
+                        if(bomb>0):
+                            board[row][col]=str(bomb)
+            return board
+        
+        def final_call(board,visited,values):
+            maxrow=len(board)
+            maxcol=len(board[0])
+            while(len(values)>0):
+                #print(visited,values)
+                x=values.pop(0)
+                if x not in visited:
+                    row=x[0]
+                    col=x[1]
+                    visited.append([row,col])
+                    if(board[row][col]!='E'):
+                        if([row,col] not in values and [row,col] not in visited):
+                            visited.append([row,col])
+                    else:
+                        if(row+1<maxrow):#down
+                            if([row+1,col] not in values and [row+1,col] not in visited):
+                                values.append([row+1,col])
+                        if(row-1>=0):#up
+                            if([row-1,col] not in values and [row-1,col] not in visited):
+                                values.append([row-1,col])
+                        if(col-1>=0):#left
+                            if([row,col-1] not in values and [row,col-1] not in visited):
+                                values.append([row,col-1])
+                        if(col+1<maxcol):#right
+                            if([row,col+1] not in values and [row,col+1] not in visited):
+                                values.append([row,col+1])
+                        if(row-1>=0 and col+1<maxcol):#upper-right
+                            if([row-1,col+1] not in values and [row-1,col+1] not in visited):
+                                values.append([row-1,col+1])
+                        if(row-1>=0 and col-1>=0):#upper-left
+                            if([row-1,col-1] not in values and [row-1,col-1] not in visited):
+                                values.append([row-1,col-1])  
+                        if(row+1<maxrow and col+1<maxcol):#lower-right
+                            if([row+1,col+1] not in values and [row+1,col+1] not in visited):
+                                values.append([row+1,col+1])
+                        if(row+1<maxrow and col-1>=0):#lower-left
+                            if([row+1,col-1] not in values and [row+1,col-1] not in visited):
+                                values.append([row+1,col-1])
+            return(visited)     
+                                
+        row=click[0]
+        col=click[1]
+        if(board[row][col]=='M'):
+            board[row][col]='X'
+            return board
+        if(board[row][col]=='E'):
+            board_org = copy.deepcopy(board)
+            board_new=changewithbomb(board)
+        print(board_new)
+        print(board_org)
+        visited=final_call(board_new,[],[[row,col]])
+        # for i in visited:
+        #     row=i[0]
+        #     col=i[1]
+        #     if(board_new[row][col]=='E'):
+        #         board_new[row][col]='B'
+        # print(board_new)
+        maxrow=len(board)
+        maxcol=len(board[0])
+        for row in range(maxrow):
+                for col in range(maxcol):
+                    if([row,col] not in visited):
+                        board_new[row][col]=board_org[row][col]
+                    else:
+                        if(board_new[row][col]=='E'):
+                            board_new[row][col]='B'
+        return(board_new)
+        # print(visited)
+        
