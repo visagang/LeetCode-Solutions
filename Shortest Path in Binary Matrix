@@ -1,0 +1,68 @@
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        if(grid[0][0]==1):
+            return -1
+        start=[0,0]
+        maxrow=len(grid)
+        end=[maxrow-1,maxrow-1]
+        def bfs(grid,ans):
+            while(len(ans)!=0):
+                x=ans.pop(0)
+                row=x[0]
+                col=x[1]
+                depth=x[2]
+                if(row==maxrow-1 and col==maxrow-1):
+                    return(depth)
+                    break
+
+                if(row+1<maxrow):#down
+                    if(grid[row+1][col]==0):
+                        grid[row+1][col]=1
+                        #if([row+1,col,depth+1] not in ans):
+                        ans.append([row+1,col,depth+1])
+                if(col+1<maxrow):#right
+                    if(grid[row][col+1]==0):
+                        grid[row][col+1]=1
+                        #if([row,col+1,depth+1] not in ans):
+                        ans.append([row,col+1,depth+1])
+                if(row+1<maxrow and col+1<maxrow):#lower-right
+                    if(grid[row+1][col+1]==0):
+                        grid[row+1][col+1]=1
+                        #if([row+1,col+1,depth+1] not in ans):
+                        ans.append([row+1,col+1,depth+1])
+                if(row+1<maxrow and col-1>=0):#lower-left
+                    if(grid[row+1][col-1]==0):
+                        grid[row+1][col-1]=1
+                        #if([row+1,col-1,depth+1] not in ans):
+                        ans.append([row+1,col-1,depth+1])
+                            
+                if(row-1>=0 and col-1>=0):#upper-left
+                    if(grid[row-1][col-1]==0):
+                        grid[row-1][col-1]=1
+                        #if([row-1,col-1,depth+1] not in ans):
+                        ans.append([row-1,col-1,depth+1])
+                if(row-1>=0 and col+1<maxrow):#upper-right
+                    if(grid[row-1][col+1]==0):
+                        grid[row-1][col+1]=1
+                        #if([row-1,col+1,depth+1] not in ans):
+                        ans.append([row-1,col+1,depth+1])
+                if(row-1>=0):#up
+                    if(grid[row-1][col]==0):
+                        grid[row-1][col]=1
+                        #if([row-1,col,depth+1] not in ans):
+                        ans.append([row-1,col,depth+1])  
+                
+                if(col-1>=0):#left
+                    if(grid[row][col-1]==0):
+                        grid[row][col-1]=1
+                        #if([row,col-1,depth+1] not in ans):
+                        ans.append([row,col-1,depth+1])
+            
+                
+        x=(bfs(grid,[[0,0,1]]))
+
+        if(x is None):
+            return -1
+        return x
+            
+            
