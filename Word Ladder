@@ -1,0 +1,29 @@
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if(endWord not in wordList):
+            return 0
+        if(beginWord in wordList):
+            wordList.remove(beginWord)
+        def check(x,target):
+            unique=0
+            for i in range(len(target)):
+                if(x[i]!=target[i]):
+                    unique+=1
+                    if(unique>1):
+                        return False
+            return True
+        cur=[[beginWord,1]]
+        while(len(cur)>0):
+            x=cur.pop(0)
+            word=x[0]
+            depth=x[1]
+            if(word==endWord):
+                return depth
+            w=[]
+            for i in wordList:
+                if(check(word,i)):
+                    cur.append([i,depth+1])
+                    w.append(i)
+            for i in w:
+                wordList.remove(i)
+        return 0
